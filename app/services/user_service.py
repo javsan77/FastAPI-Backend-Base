@@ -4,9 +4,12 @@ from fastapi import HTTPException, status
 from app.schemas.user_schema import UserCreate
 from app.repositories.user_repository import UserRepository
 
-_repository = UserRepository()
-
 class UserService:
+        def __init__(self):
+        # Guardamos la instancia dentro de la clase
+            self.repository = UserRepository()
+
+
         def create_user(self, user: UserCreate) -> dict:
             return self.repository.create(user)
         
