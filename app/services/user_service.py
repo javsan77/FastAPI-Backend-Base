@@ -4,10 +4,9 @@ from fastapi import HTTPException, status
 from app.schemas.user_schema import UserCreate
 from app.repositories.user_repository import UserRepository
 
-class UserService:
-    def __init__(self):
-        self.repository = UserRepository()
+_repository = UserRepository()
 
+class UserService:
         def create_user(self, user: UserCreate) -> dict:
             return self.repository.create(user)
         
@@ -22,5 +21,4 @@ class UserService:
                     detail="User not found"
                 )
             return user
-        
         
