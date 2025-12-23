@@ -29,3 +29,11 @@ class UserRepository:
                 {"id": user_id}
             )
             return result.fetchone()
+        
+    def find_by_email(self, email: str):
+        with get_connection() as conn:
+            result = conn.execute(
+                text("EXEC dbo.usp_user_get_by_email :email"),
+                {"email": email}
+            )
+            return result.fetchone()

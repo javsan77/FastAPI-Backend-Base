@@ -64,3 +64,25 @@ BEGIN
     WHERE Id = @Id;
 END;
 GO
+
+----------------------
+
+USE fastapi_user_api;
+GO
+
+CREATE PROCEDURE dbo.usp_user_get_by_email
+    @Email NVARCHAR(150)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Id,
+        Name,
+        Email,
+        PasswordHash,
+        CreatedAt
+    FROM dbo.Users
+    WHERE Email = @Email;
+END;
+GO
