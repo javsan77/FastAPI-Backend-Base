@@ -9,16 +9,16 @@ GO
 -----------------------
 
 CREATE PROCEDURE dbo.usp_user_create
-    @Name NVARCHAR(100),
-    @Email NVARCHAR(150)
+    @name NVARCHAR(100),
+    @email NVARCHAR(150)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO dbo.Users (Name, Email)
-    VALUES (@Name, @Email);
+    INSERT INTO Users (Name, Email, CreatedAt)
+    VALUES (@name, @email, GETDATE());
 
-    SELECT SCOPE_IDENTITY() AS Id;
+    SELECT SCOPE_IDENTITY() AS UserId;
 END;
 GO
 
