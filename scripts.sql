@@ -6,17 +6,24 @@ CREATE TABLE dbo.Users (
 );
 GO
 
+---------------------
+
+ALTER TABLE fastapi_user_api.dbo.Users
+ADD PasswordHash nvarchar(255) NOT NULL;
+
+
 -----------------------
 
 CREATE PROCEDURE dbo.usp_user_create
     @name NVARCHAR(100),
-    @email NVARCHAR(150)
+    @email NVARCHAR(150),
+    @password_hash NVARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Users (Name, Email, CreatedAt)
-    VALUES (@name, @email, GETDATE());
+    INSERT INTO Users (Name, Email, CreatedAt, PasswordHash)
+    VALUES (@name, @email, GETDATE(),@password_hash);
 
     SELECT SCOPE_IDENTITY() AS UserId;
 END;

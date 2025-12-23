@@ -1,6 +1,7 @@
 from fastapi import HTTPException, status
 from app.repositories.user_repository import UserRepository
 from app.schemas.user_schema import UserCreate
+from app.core.security import hash_password
 
 class UserService:
 
@@ -8,8 +9,8 @@ class UserService:
         self.repo = UserRepository()
 
     def create_user(self, user: UserCreate) -> dict:
-        user_id = self.repo.create(user.name, user.email)
-        print("USER_ID CREADO:", user_id)
+        hashed = hash_password(user.password)
+        user_id = self.repo.create(user.name, user.email, hashed)        
         return self.get_user_by_id(user_id)
 
     def get_all_users(self):

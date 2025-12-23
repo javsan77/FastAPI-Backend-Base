@@ -3,11 +3,15 @@ from app.config.database import get_connection
 
 class UserRepository:
 
-    def create(self, name: str, email: str) -> int:
+    def create(self, name: str, email: str, password: str) -> int:
         with get_connection() as conn:
             result = conn.execute(
-                text("EXEC dbo.usp_user_create :name, :email"),
-                {"name": name, "email": email}
+                text("EXEC dbo.usp_user_create :name, :email, :password"),
+                {
+                    "name": name,
+                    "email": email,
+                    "password": password
+                }
             )
             return int(result.scalar())
 
