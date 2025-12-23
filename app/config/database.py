@@ -24,4 +24,5 @@ engine = create_engine(
 )
 
 def get_connection():
-    return engine.connect()
+    # Use a transactional context so that writes are committed on success
+    return engine.begin()

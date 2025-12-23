@@ -7,7 +7,7 @@ from app.services.user_service import UserService
 router = APIRouter()
 service = UserService()
 
-@router.post("/", response_model=UserResponse)
+@router.post("/create", response_model=UserResponse)
 def create_user(user:UserCreate):
     return service.create_user(user)
 
@@ -15,6 +15,6 @@ def create_user(user:UserCreate):
 def get_users():
     return service.get_all_users()
 
-@router.get("{user_id}", response_model=UserResponse)
+@router.get("/{user_id}", response_model=UserResponse)
 def get_user(user_id: int):
     return service.get_user_by_id(user_id)
